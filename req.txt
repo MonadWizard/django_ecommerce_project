@@ -1,0 +1,6 @@
+django
+
+django-ckeditor
+pillow
+django-mptt
+
