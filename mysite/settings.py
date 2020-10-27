@@ -133,8 +133,9 @@ STATIC_URL = '/static/'
 
 # for static file path in specific dir
 STATIC_ROOT= os.path.join(BASE_DIR, 'static')
+
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'home/static')
+    os.path.join(BASE_DIR, 'home/static', )
 ]
 # now run "python manage.py collectstatic"  it collects all static folder in single dir
 # also collect adminPanel's static data
