@@ -1,5 +1,6 @@
-* create 3 models(category, product, images) on products app
-* view image on admin product list by creating fake table(image_tag)
-* create inline image uploading on admin panel
-* add ckEditor to admin panel
+* complete about-us with modal view from ckeditor page
+* complete contact-us with modal and complete add submission form 
+
+### complete about-us & contact-us pages
+
 

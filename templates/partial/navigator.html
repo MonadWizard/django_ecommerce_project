@@ -1,4 +1,5 @@
 {% load static  %}
+{% load i18n %}
 
 <!-- NAVIGATION -->
 <div id="navigation">
@@ -217,12 +218,36 @@
             </div>
             <!-- /category nav -->
 
+
             <!-- menu nav -->
             <div class="menu-nav">
                 <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
                 <ul class="menu-list">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Shop</a></li>
+                    <li><a href="{% url 'index' %}">Home</a></li>
+                    <li><a data-toggle="modal" data-target="#modalQuickViewA">About us</a>
+
+                        <!-- Modal: modalQuickView -->
+                        <div class="modal fade" id="modalQuickViewA" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                {{ setting.aboutus|safe }}
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </li>
+
+
                     <li class="dropdown mega-dropdown"><a class="dropdown-toggle" data-toggle="dropdown"
                             aria-expanded="true">Women <i class="fa fa-caret-down"></i></a>
                         <div class="custom-menu">
@@ -371,16 +396,81 @@
                             </div>
                         </div>
                     </li>
-                    <li><a href="#">Sales</a></li>
-                    <li class="dropdown default-dropdown"><a class="dropdown-toggle" data-toggle="dropdown"
-                            aria-expanded="true">Pages <i class="fa fa-caret-down"></i></a>
-                        <ul class="custom-menu">
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="products.html">Products</a></li>
-                            <li><a href="product-page.html">Product Details</a></li>
-                            <li><a href="checkout.html">Checkout</a></li>
-                        </ul>
+                    <li><a data-toggle="modal" data-target="#modalQuickView">Contact</a>
+
+                        <!-- Modal: modalQuickView -->
+                        <div class="modal fade" id="modalQuickView" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <div class="row">
+
+   <!-- section -->
+   <div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+
+            <div class="col-md-4">
+
+                <div class="billing-details">
+
+                    <div class="section-title">
+                        <h3 class="title">{% trans "Contact Form"%}</h3>
+
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{message.tags}}" role="alert">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+
+                    </div>
+                    <form id="checkout-form" class="clearfix" method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <input type="submit" value="{% trans "SEND FORM" %}">
+                    </form>
+                </div>
+
+            </div>
+
+            <div class="col-md-8">
+                <div class="shiping-methods">
+                    <div class="section-title">
+                        <h3 class="title">{% trans "Contact Information"%}</h3>
+                    </div>
+                    <div >
+                        {{ setting.contact|safe }}
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /section -->
+
+                                    </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
                     </li>
+
                 </ul>
             </div>
             <!-- menu nav -->
