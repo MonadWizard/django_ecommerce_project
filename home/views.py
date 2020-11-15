@@ -12,7 +12,9 @@ def index(request):
 
     setting = Setting.objects.get(pk=1)
     category = Category.objects.all()
-    products_slider = Product.objects.all().order_by('-id')[:4]
+    products_slider = Product.objects.all().order_by('-id')[:4]  # first 4 product
+    products_latest = Product.objects.all().order_by('id')[:4]  # last 4 product
+    products_picked = Product.objects.all().order_by('?')[:4]  # Random selected 4 product
 
 
 
@@ -41,6 +43,9 @@ def index(request):
                 'setting': setting, 'form':form, 
                 'category': category, 
                 'products_slider': products_slider,
+                'products_latest': products_latest,
+                'products_picked': products_picked,
+
                 }
 
     template_name = 'home/index.html'

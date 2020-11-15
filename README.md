@@ -4,4 +4,6 @@
 
 * add dynamic slider in home-page
 
+* add product with Image On home-page
+
 
