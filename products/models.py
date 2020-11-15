@@ -75,7 +75,7 @@ class Product(models.Model):
 
     image_tag.short_description = 'Image'
 
-        def get_absolute_url(self):
+    def get_absolute_url(self):
         return reverse ('category_detail', kwargs={'slug': self.slug})
 
 

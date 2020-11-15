@@ -12,6 +12,7 @@ def index(request):
 
     setting = Setting.objects.get(pk=1)
     category = Category.objects.all()
+    products_slider = Product.objects.all().order_by('-id')[:4]
 
 
 
@@ -36,7 +37,11 @@ def index(request):
     # contact us form.......end.........
 
 
-    context = {'setting': setting, 'form':form, 'category': category}
+    context = {
+                'setting': setting, 'form':form, 
+                'category': category, 
+                'products_slider': products_slider,
+                }
 
     template_name = 'home/index.html'
     return render(request,template_name, context)
@@ -45,7 +50,7 @@ def index(request):
 def category_products(request, id, slug):
     products = Product.objects.filter(category_id=id)
     return HttpResponse(products)
-    
+
 
 
 
