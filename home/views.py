@@ -2,15 +2,16 @@ from django.shortcuts import render
 
 from django.http import HttpResponse, HttpResponseRedirect
 
-from .models import Setting, ContactForm, ContactMessage
+from home.models import Setting, ContactForm, ContactMessage
+from products.models import Category, Product
+
 from django.contrib import messages
 # Create your views here.
 
 def index(request):
 
     setting = Setting.objects.get(pk=1)
-
-
+    category = Category.objects.all()
 
 
 
@@ -32,17 +33,19 @@ def index(request):
     setting = Setting.objects.get(pk=1)
     form = ContactForm
 
-
-
     # contact us form.......end.........
 
 
-    context = {'setting': setting, 'form':form}
+    context = {'setting': setting, 'form':form, 'category': category}
 
     template_name = 'home/index.html'
     return render(request,template_name, context)
 
 
+def category_products(request, id, slug):
+    products = Product.objects.filter(category_id=id)
+    return HttpResponse(products)
+    
 
 
 

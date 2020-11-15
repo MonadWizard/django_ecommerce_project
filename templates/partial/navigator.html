@@ -1,5 +1,8 @@
 {% load static  %}
 {% load i18n %}
+{% load mptt_tags %}
+
+
 
 <!-- NAVIGATION -->
 <div id="navigation">
@@ -9,50 +12,35 @@
             <!-- category nav -->
             <div class="category-nav">
                 <span class="category-header">Categories <i class="fa fa-list"></i></span>
+
+
+
                 <ul class="category-list">
+                    {% recursetree category %}
+
+
                     <li class="dropdown side-dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Women’s Clothing <i
+                        <a href="category/{{ node.id }}/{{ node.slug }}" class="dropdown-toggle" {% if not node.is_leaf_node %} data-toggle="dropdown" aria-expanded="true" {% endif %}> {{ node.title }} <i
                                 class="fa fa-angle-right"></i></a>
                         <div class="custom-menu">
                             <div class="row">
                                 <div class="col-md-4">
+                                    
+                                    {% if not node.is_leaf_node %}
+
                                     <ul class="list-links">
                                         <li>
-                                            <h3 class="list-links-title">Categories</h3>
+                                            <h3 class="list-links-title">Sub Categories</h3>
                                         </li>
-                                        <li><a href="#">Women’s Clothing</a></li>
-                                        <li><a href="#">Men’s Clothing</a></li>
-                                        <li><a href="#">Phones & Accessories</a></li>
-                                        <li><a href="#">Jewelry & Watches</a></li>
-                                        <li><a href="#">Bags & Shoes</a></li>
+                                        <li><a href="#">{{ children }}</a></li>
+                               
                                     </ul>
+                        
+                                    {% endif %}
+
                                     <hr class="hidden-md hidden-lg">
                                 </div>
-                                <div class="col-md-4">
-                                    <ul class="list-links">
-                                        <li>
-                                            <h3 class="list-links-title">Categories</h3>
-                                        </li>
-                                        <li><a href="#">Women’s Clothing</a></li>
-                                        <li><a href="#">Men’s Clothing</a></li>
-                                        <li><a href="#">Phones & Accessories</a></li>
-                                        <li><a href="#">Jewelry & Watches</a></li>
-                                        <li><a href="#">Bags & Shoes</a></li>
-                                    </ul>
-                                    <hr class="hidden-md hidden-lg">
-                                </div>
-                                <div class="col-md-4">
-                                    <ul class="list-links">
-                                        <li>
-                                            <h3 class="list-links-title">Categories</h3>
-                                        </li>
-                                        <li><a href="#">Women’s Clothing</a></li>
-                                        <li><a href="#">Men’s Clothing</a></li>
-                                        <li><a href="#">Phones & Accessories</a></li>
-                                        <li><a href="#">Jewelry & Watches</a></li>
-                                        <li><a href="#">Bags & Shoes</a></li>
-                                    </ul>
-                                </div>
+
                             </div>
                             <div class="row hidden-sm hidden-xs">
                                 <div class="col-md-12">
@@ -68,152 +56,9 @@
                             </div>
                         </div>
                     </li>
-                    <li><a href="#">Men’s Clothing</a></li>
-                    <li class="dropdown side-dropdown"><a class="dropdown-toggle" data-toggle="dropdown"
-                            aria-expanded="true">Phones & Accessories <i class="fa fa-angle-right"></i></a>
-                        <div class="custom-menu">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <ul class="list-links">
-                                        <li>
-                                            <h3 class="list-links-title">Categories</h3>
-                                        </li>
-                                        <li><a href="#">Women’s Clothing</a></li>
-                                        <li><a href="#">Men’s Clothing</a></li>
-                                        <li><a href="#">Phones & Accessories</a></li>
-                                        <li><a href="#">Jewelry & Watches</a></li>
-                                        <li><a href="#">Bags & Shoes</a></li>
-                                    </ul>
-                                    <hr>
-                                    <ul class="list-links">
-                                        <li>
-                                            <h3 class="list-links-title">Categories</h3>
-                                        </li>
-                                        <li><a href="#">Women’s Clothing</a></li>
-                                        <li><a href="#">Men’s Clothing</a></li>
-                                        <li><a href="#">Phones & Accessories</a></li>
-                                        <li><a href="#">Jewelry & Watches</a></li>
-                                        <li><a href="#">Bags & Shoes</a></li>
-                                    </ul>
-                                    <hr class="hidden-md hidden-lg">
-                                </div>
-                                <div class="col-md-4">
-                                    <ul class="list-links">
-                                        <li>
-                                            <h3 class="list-links-title">Categories</h3>
-                                        </li>
-                                        <li><a href="#">Women’s Clothing</a></li>
-                                        <li><a href="#">Men’s Clothing</a></li>
-                                        <li><a href="#">Phones & Accessories</a></li>
-                                        <li><a href="#">Jewelry & Watches</a></li>
-                                        <li><a href="#">Bags & Shoes</a></li>
-                                    </ul>
-                                    <hr>
-                                    <ul class="list-links">
-                                        <li>
-                                            <h3 class="list-links-title">Categories</h3>
-                                        </li>
-                                        <li><a href="#">Women’s Clothing</a></li>
-                                        <li><a href="#">Men’s Clothing</a></li>
-                                        <li><a href="#">Phones & Accessories</a></li>
-                                        <li><a href="#">Jewelry & Watches</a></li>
-                                        <li><a href="#">Bags & Shoes</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-md-4 hidden-sm hidden-xs">
-                                    <a class="banner banner-2" href="#">
-                                        <img src="{% static './img/banner04.jpg' %}" alt="">
-                                        <div class="banner-caption">
-                                            <h3 class="white-color">NEW<br>COLLECTION</h3>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li><a href="#">Computer & Office</a></li>
-                    <li><a href="#">Consumer Electronics</a></li>
-                    <li class="dropdown side-dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Jewelry & Watches <i
-                                class="fa fa-angle-right"></i></a>
-                        <div class="custom-menu">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <ul class="list-links">
-                                        <li>
-                                            <h3 class="list-links-title">Categories</h3>
-                                        </li>
-                                        <li><a href="#">Women’s Clothing</a></li>
-                                        <li><a href="#">Men’s Clothing</a></li>
-                                        <li><a href="#">Phones & Accessories</a></li>
-                                        <li><a href="#">Jewelry & Watches</a></li>
-                                        <li><a href="#">Bags & Shoes</a></li>
-                                    </ul>
-                                    <hr>
-                                    <ul class="list-links">
-                                        <li>
-                                            <h3 class="list-links-title">Categories</h3>
-                                        </li>
-                                        <li><a href="#">Women’s Clothing</a></li>
-                                        <li><a href="#">Men’s Clothing</a></li>
-                                        <li><a href="#">Phones & Accessories</a></li>
-                                        <li><a href="#">Jewelry & Watches</a></li>
-                                        <li><a href="#">Bags & Shoes</a></li>
-                                    </ul>
-                                    <hr class="hidden-md hidden-lg">
-                                </div>
-                                <div class="col-md-4">
-                                    <ul class="list-links">
-                                        <li>
-                                            <h3 class="list-links-title">Categories</h3>
-                                        </li>
-                                        <li><a href="#">Women’s Clothing</a></li>
-                                        <li><a href="#">Men’s Clothing</a></li>
-                                        <li><a href="#">Phones & Accessories</a></li>
-                                        <li><a href="#">Jewelry & Watches</a></li>
-                                        <li><a href="#">Bags & Shoes</a></li>
-                                    </ul>
-                                    <hr>
-                                    <ul class="list-links">
-                                        <li>
-                                            <h3 class="list-links-title">Categories</h3>
-                                        </li>
-                                        <li><a href="#">Women’s Clothing</a></li>
-                                        <li><a href="#">Men’s Clothing</a></li>
-                                        <li><a href="#">Phones & Accessories</a></li>
-                                        <li><a href="#">Jewelry & Watches</a></li>
-                                        <li><a href="#">Bags & Shoes</a></li>
-                                    </ul>
-                                    <hr class="hidden-md hidden-lg">
-                                </div>
-                                <div class="col-md-4">
-                                    <ul class="list-links">
-                                        <li>
-                                            <h3 class="list-links-title">Categories</h3>
-                                        </li>
-                                        <li><a href="#">Women’s Clothing</a></li>
-                                        <li><a href="#">Men’s Clothing</a></li>
-                                        <li><a href="#">Phones & Accessories</a></li>
-                                        <li><a href="#">Jewelry & Watches</a></li>
-                                        <li><a href="#">Bags & Shoes</a></li>
-                                    </ul>
-                                    <hr>
-                                    <ul class="list-links">
-                                        <li>
-                                            <h3 class="list-links-title">Categories</h3>
-                                        </li>
-                                        <li><a href="#">Women’s Clothing</a></li>
-                                        <li><a href="#">Men’s Clothing</a></li>
-                                        <li><a href="#">Phones & Accessories</a></li>
-                                        <li><a href="#">Jewelry & Watches</a></li>
-                                        <li><a href="#">Bags & Shoes</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li><a href="#">Bags & Shoes</a></li>
-                    <li><a href="#">View All</a></li>
+
+                    {% endrecursetree %}
+
                 </ul>
             </div>
             <!-- /category nav -->
@@ -406,61 +251,63 @@
                                     <div class="modal-body">
                                         <div class="row">
 
-   <!-- section -->
-   <div class="section">
-    <!-- container -->
-    <div class="container">
-        <!-- row -->
-        <div class="row">
+                                            <!-- section -->
+                                            <div class="section">
+                                                <!-- container -->
+                                                <div class="container">
+                                                    <!-- row -->
+                                                    <div class="row">
 
-            <div class="col-md-4">
+                                                        <div class="col-md-4">
 
-                <div class="billing-details">
+                                                            <div class="billing-details">
 
-                    <div class="section-title">
-                        <h3 class="title">{% trans "Contact Form"%}</h3>
+                                                                <div class="section-title">
+                                                                    <h3 class="title">{% trans "Contact Form"%}</h3>
 
-                        {% if messages %}
-                            {% for message in messages %}
-                                <div class="alert alert-{{message.tags}}" role="alert">
-                                    {{ message }}
-                                </div>
-                            {% endfor %}
-                        {% endif %}
+                                                                    {% if messages %}
+                                                                    {% for message in messages %}
+                                                                    <div class="alert alert-{{message.tags}}"
+                                                                        role="alert">
+                                                                        {{ message }}
+                                                                    </div>
+                                                                    {% endfor %}
+                                                                    {% endif %}
 
-                    </div>
-                    <form id="checkout-form" class="clearfix" method="post">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                        <input type="submit" value="{% trans "SEND FORM" %}">
-                    </form>
-                </div>
+                                                                </div>
+                                                                <form id="checkout-form" class="clearfix" method="post">
+                                                                    {% csrf_token %}
+                                                                    {{ form.as_p }}
+                                                                    <input type="submit"
+                                                                        value="{% trans "SEND FORM" %}">
+                                                                </form>
+                                                            </div>
 
-            </div>
+                                                        </div>
 
-            <div class="col-md-8">
-                <div class="shiping-methods">
-                    <div class="section-title">
-                        <h3 class="title">{% trans "Contact Information"%}</h3>
-                    </div>
-                    <div >
-                        {{ setting.contact|safe }}
-                    </div>
+                                                        <div class="col-md-4 col-sm-12 ">
+                                                            <div class="shiping-methods">
+                                                                <div class="section-title">
+                                                                    <h3 class="title">{% trans "Contact Information"%}
+                                                                    </h3>
+                                                                </div>
 
-                </div>
-            </div>
-
-
+                                                                    {{ setting.contact|safe }}
+                                                                
+                                                            </div>
+                                                        </div>
 
 
-        </div>
-        <!-- /row -->
-    </div>
-    <!-- /container -->
-</div>
-<!-- /section -->
 
-                                    </div>
+
+                                                    </div>
+                                                    <!-- /row -->
+                                                </div>
+                                                <!-- /container -->
+                                            </div>
+                                            <!-- /section -->
+
+                                        </div>
                                     </div>
 
                                 </div>
