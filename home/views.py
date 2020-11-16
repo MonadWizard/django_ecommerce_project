@@ -54,7 +54,20 @@ def index(request):
 
 def category_products(request, id, slug):
     products = Product.objects.filter(category_id=id)
-    return HttpResponse(products)
+    category = Category.objects.all()
+    products_list = Product.objects.all().order_by('title')
+
+
+
+
+    context = {
+        'products': products,
+        'category': category,
+        'products_list' : products_list,
+
+    }
+    template_name = 'home/category_products.html'
+    return render(request, template_name, context)
 
 
 
