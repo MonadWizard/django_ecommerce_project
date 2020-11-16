@@ -1,4 +1,5 @@
-* complete listing product from navigation category
-* display list of products for add to cart
+* complete Search panel
+* complete search category
+* fix category url from navigator.html
 
 
