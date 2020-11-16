@@ -6,6 +6,9 @@ from home.models import Setting, ContactForm, ContactMessage
 from products.models import Category, Product
 
 from django.contrib import messages
+
+from home.forms import SearchForm  # for search
+
 # Create your views here.
 
 def index(request):
@@ -70,7 +73,23 @@ def category_products(request, id, slug):
     return render(request, template_name, context)
 
 
+def search(request):
+    if request.method == 'POST': # check post
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            query = form.cleaned_data['query'] # get form input data
+            catid = form.cleaned_data['catid']
+            if catid==0:
+                products=Product.objects.filter(title__icontains=query)  #SELECT * FROM product WHERE title LIKE '%query%'
+            else:
+                products = Product.objects.filter(title__icontains=query,category_id=catid)
 
+            category = Category.objects.all()
+            context = {'products': products, 'query':query,
+                       'category': category }
+            return render(request, 'home/search_products.html', context)
+
+    return HttpResponseRedirect('/')
 
 
 

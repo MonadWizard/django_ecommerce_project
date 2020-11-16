@@ -10,7 +10,7 @@
     <div class="container">
         <div id="responsive-nav">
             <!-- category nav -->
-            <div class="category-nav">
+            <div class="category-nav  show-on-click">
                 <span class="category-header">Categories <i class="fa fa-list"></i></span>
 
 
@@ -20,12 +20,13 @@
 
 
                     <li class="dropdown side-dropdown">
-                        <a href="category/{{ node.id }}/{{ node.slug }}" class="dropdown-toggle" {% if not node.is_leaf_node %} data-toggle="dropdown" aria-expanded="true" {% endif %}> {{ node.title }} <i
-                                class="fa fa-angle-right"></i></a>
+                        <a href="{% url 'category_products_nav' %}/{{ node.id }}/{{ node.slug }}"
+                            class="dropdown-toggle" {% if not node.is_leaf_node %} data-toggle="dropdown"
+                            aria-expanded="true" {% endif %}> {{ node.title }} <i class="fa fa-angle-right"></i></a>
                         <div class="custom-menu">
                             <div class="row">
                                 <div class="col-md-4">
-                                    
+
                                     {% if not node.is_leaf_node %}
 
                                     <ul class="list-links">
@@ -33,9 +34,9 @@
                                             <h3 class="list-links-title">Sub Categories</h3>
                                         </li>
                                         <li><a href="#">{{ children }}</a></li>
-                               
+
                                     </ul>
-                        
+
                                     {% endif %}
 
                                     <hr class="hidden-md hidden-lg">
@@ -68,7 +69,7 @@
             <div class="menu-nav">
                 <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
                 <ul class="menu-list">
-                    <li><a href="{% url 'index' %}">Home</a></li>
+                    <li><a href="{% url 'home' %}">Home</a></li>
                     <li><a data-toggle="modal" data-target="#modalQuickViewA">About us</a>
 
                         <!-- Modal: modalQuickView -->
@@ -292,8 +293,8 @@
                                                                     </h3>
                                                                 </div>
 
-                                                                    {{ setting.contact|safe }}
-                                                                
+                                                                {{ setting.contact|safe }}
+
                                                             </div>
                                                         </div>
 
