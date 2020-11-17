@@ -200,18 +200,18 @@
 
 
 
-                            {% for lp in products_list %}
+                            {% for pl in products_list %}
 
                                 <!-- Product Single -->
                                 <div class="col-md-3 col-sm-6 col-xs-6">
                                     <div class="product product-single">
                                         <div class="product-thumb">
-                                            <a href="/product/{{ lp.id }}/{{ lp.slug }}"  class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</a>
-                                            <img src="{{ lp.image.url }}" alt="" style= "height: 100px; width: 100px" >
+                                            <a href="/product/{{ pl.id }}/{{ pl.slug }}"  class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</a>
+                                            <img src="{{ pl.image.url }}" alt="" style= "height: 100px; width: 100px" >
                                         </div>
                                         <div class="product-body">
-                                            <!-- <h3 class="product-price">$ {{ lp.price }}</h3> -->
-                                            <h3 class="product-price"><del>{{ lp.price }}</del> <ins>{{ lp.price }}-20%</ins></h3>
+                                            <!-- <h3 class="product-price">$ {{ pl.price }}</h3> -->
+                                            <h3 class="product-price"><del>{{ pl.price }}</del> <ins>{{ pl.price }}-20%</ins></h3>
                                             <div class="product-rating">
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star"></i>
@@ -219,11 +219,11 @@
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star-o empty"></i>
                                             </div>
-                                            <h2 class="product-name"><a href="#">{{ lp.title }}</a></h2>
+                                            <h2 class="product-name"><a href="#">{{ pl.title }}</a></h2>
                                             <div class="product-btns">
                                                 <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
                                                 <button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
-                                                <a href="/addtocard/{{ lp.id }}" class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</a>
+                                                <a href="/addtocard/{{ pl.id }}" class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</a>
                                             </div>
                                         </div>
                                     </div>
@@ -257,21 +257,21 @@
                                         </thead>
                                         <tbody>
 
-                                            {% for i in products %}
+                                            {% for pl in products %}
 
                                             <tr>
-                                                <td class="thumb"><a href="/product/{{ i.id }}/{{ i.slug }}"><img src="{{ i.image.url }}" alt="" style = "height: 100px; width: 100px" ></a></td>
+                                                <td class="thumb"><a href="/product/{{ pl.id }}/{{ pl.slug }}"><img src="{{ pl.image.url }}" alt="" style = "height: 100px; width: 100px" ></a></td>
                                                 <td class="details">
-                                                    <a href="/product/{{ i.id }}/{{ i.slug }}">{{ i.title }}</a>
+                                                    <a href="/product/{{ pl.id }}/{{ pl.slug }}">{{ pl.title }}</a>
                                                     <ul>
-                                                        <li><span>amount: {{ i.amount }}</span></li>
-                                                        <li><span>minamount: {{ i.minamount }}</span></li>
+                                                        <li><span>amount: {{ pl.amount }}</span></li>
+                                                        <li><span>minamount: {{ pl.minamount }}</span></li>
                                                     </ul>
                                                 </td>
-                                                <td class="price text-center"><strong>$ {{ i.price }}</strong></td>
+                                                <td class="price text-center"><strong>$ {{ pl.price }}</strong></td>
                                                 <td class="qty text-center"><input class="input" type="number" value="1"></td>
 
-                                                <td class="text-right"><a href="/addtocard/{{ rp.id }}"  class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</a></td>
+                                                <td class="text-right"><a href="/addtocard/{{ pl.id }}"  class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</a></td>
                                             </tr>
 
                                             {% endfor %}

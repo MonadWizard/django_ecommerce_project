@@ -52,8 +52,31 @@
 				<!-- /Logo -->
 
 
+				<!-- for autocomplete search -->
 
-				<!-- Search -->                <!-- Search -->
+				<script>
+
+					$(function() {
+					  $("#query").autocomplete({
+						source: "/search_auto/",
+						select: function (event, ui) { //item selected
+						  AutoCompleteSelectHandler(event, ui)
+						},
+						minLength: 2,
+					  });
+					});
+				  
+					function AutoCompleteSelectHandler(event, ui)
+					{
+					  var selectedObj = ui.item;
+					}
+				  
+				  </script>
+
+				<!-- /for autocomplete search -->
+
+
+				<!-- Search -->                
                 <div class="header-search">
                     <form action="/search/" method="post">
                         {% csrf_token %}
@@ -79,7 +102,6 @@
                 </div>
                 <!-- /Search -->
 
-				<!-- /Search -->
 
 
 

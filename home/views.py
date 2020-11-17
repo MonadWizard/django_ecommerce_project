@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+import json
 from django.http import HttpResponse, HttpResponseRedirect
 
 from home.models import Setting, ContactForm, ContactMessage
@@ -93,7 +93,20 @@ def search(request):
 
 
 
-
+def search_auto(request):
+  if request.is_ajax():
+    q = request.GET.get('term', '')
+    products = Product.objects.filter(title__icontains=q)
+    results = []
+    for pl in products:
+      products_json = {}
+      products_json = pl.title
+      results.append(products_json)
+    data = json.dumps(results)
+  else:
+    data = 'fail'
+  mimetype = 'application/json'
+  return HttpResponse(data, mimetype)
 
 
 

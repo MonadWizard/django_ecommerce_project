@@ -1,5 +1,4 @@
-* complete Search panel
-* complete search category
-* fix category url from navigator.html
+* Auto-complete Search panel
+* 
 
-
+15

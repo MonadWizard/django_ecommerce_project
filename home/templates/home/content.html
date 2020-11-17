@@ -16,14 +16,14 @@
 				</div>
 				<!-- section title -->
 
-				{% for lp in products_latest %}
+				{% for pl in products_latest %}
 
 				<!-- Product Single -->
 				<div class="col-md-3 col-sm-6 col-xs-6">
 					<div class="product product-single">
 						<div class="product-thumb">
-							<a href="/product/{{ lp.id }}/{{ lp.slug }}"  class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</a>
-							<img src="{{ lp.image.url }}" alt="" style= "height: 200px" >
+							<a href="/product/{{ pl.id }}/{{ pl.slug }}"  class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</a>
+							<img src="{{ pl.image.url }}" alt="" style= "height: 200px" >
 						</div>
 						<div class="product-body">
 							<h3 class="product-price">$ {{ lp.price }}</h3>
@@ -38,7 +38,7 @@
 							<div class="product-btns">
 								<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
 								<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
-								<a href="/addtocard/{{ lp.id }}" class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</a>
+								<a href="/addtocard/{{ pl.id }}" class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</a>
 							</div>
 						</div>
 					</div>
@@ -63,17 +63,17 @@
 				</div>
 				<!-- section title -->
 
-				{% for rp in products_picked %}
+				{% for pl in products_picked %}
 
 				<!-- Product Single -->
 				<div class="col-md-3 col-sm-6 col-xs-6">
 					<div class="product product-single">
 						<div class="product-thumb">
-							<a href="/product/{{ rp.id }}/{{ rp.slug }}" class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</a>
-							<img src="{{ rp.image.url }}" alt="" style= "height: 200px" >
+							<a href="/product/{{ pl.id }}/{{ pl.slug }}" class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</a>
+							<img src="{{ pl.image.url }}" alt="" style= "height: 200px" >
 						</div>
 						<div class="product-body">
-							<h3 class="product-price">$ {{ rp.price }}</h3>
+							<h3 class="product-price">$ {{ pl.price }}</h3>
 							<div class="product-rating">
 								<i class="fa fa-star"></i>
 								<i class="fa fa-star"></i>
@@ -81,11 +81,11 @@
 								<i class="fa fa-star"></i>
 								<i class="fa fa-star-o empty"></i>
 							</div>
-							<h2 class="product-name"><a href="#">{{ rp.title }}</a></h2>
+							<h2 class="product-name"><a href="#">{{ pl.title }}</a></h2>
 							<div class="product-btns">
 								<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
 								<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
-								<a href="/addtocard/{{ rp.id }}"  class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</a>
+								<a href="/addtocard/{{ pl.id }}"  class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</a>
 							</div>
 						</div>
 					</div>
