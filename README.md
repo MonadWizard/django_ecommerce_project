@@ -1,8 +1,2 @@
-* complete Search panel
-* complete search category
-* fix category url from navigator.html
-
-* Auto-complete Search panel
-
-
-0.07_ in 1st two commite
+* view product from list to product detail page
+* syncronize all data less review
