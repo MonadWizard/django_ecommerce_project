@@ -1,4 +1,8 @@
-* Auto-complete Search panel
-* 
+* complete Search panel
+* complete search category
+* fix category url from navigator.html
 
-15
+* Auto-complete Search panel
+
+
+0.07_ in 1st two commite
