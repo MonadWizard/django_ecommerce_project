@@ -3,7 +3,7 @@ import json
 from django.http import HttpResponse, HttpResponseRedirect
 
 from home.models import Setting, ContactForm, ContactMessage
-from products.models import Category, Product, Images
+from products.models import Category, Product, Images, Comment
 
 from django.contrib import messages
 
@@ -115,12 +115,14 @@ def product_detail(request, id, slug):
     product = Product.objects.get(pk=id)
     category = Category.objects.all()
     images = Images.objects.filter(product_id=id)
+    comments = Comment.objects.filter(product_id=id, status='True')
+
 
     context = {
         'product': product,
         'category': category,
         'images': images,
-
+        'comments': comments,
 
     }
     template_name = 'home/product_detail.html'

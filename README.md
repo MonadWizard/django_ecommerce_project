@@ -1,2 +1,4 @@
-* view product from list to product detail page
-* syncronize all data less review
+* complete Comment model for review panel on product details
+* display review in product details UI
+
+
