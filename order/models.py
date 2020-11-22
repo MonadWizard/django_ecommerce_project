@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # Create your models here.
+from django.forms import ModelForm
+
 from products.models import Product
 
 class ShopCart(models.Model):
@@ -21,6 +23,11 @@ class ShopCart(models.Model):
     def amount(self):
         return (self.quantity * self.product.price)
 
+
+class ShopCartForm(ModelForm):
+    class Meta:
+        model = ShopCart
+        fields = ['quantity']
 
 
 
