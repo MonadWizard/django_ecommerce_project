@@ -44,6 +44,9 @@ INSTALLED_APPS = [
     'ckeditor',
     'mptt',
 
+    'order.apps.OrderConfig',
+    
+
 
 
 
