@@ -10,6 +10,8 @@ from django.contrib import messages
 from products.models import Category 
 from user.models import UserProfile
 
+from user.forms import SignUpForm
+
 
 def index(request):
     return HttpResponse ("User Page")
@@ -48,13 +50,33 @@ def login_form(request):
 
 def signup_form(request):
     
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save() #completed sign up
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            # Create data in profile table for user
+            current_user = request.user
+            data=UserProfile()
+            data.user_id=current_user.id
+            data.image="images/users/user.png"
+            data.save()
+            messages.success(request, 'Your account has been created!')
+            return HttpResponseRedirect('/')
+        else:
+            messages.warning(request,form.errors)
+            return HttpResponseRedirect('/user/signup')
 
+
+    form = SignUpForm()
     category = Category.objects.all()
+    context = {'category': category,
+               'form': form,
+               }
 
-
-    context = {
-        'category' : category
-    }
     template_name = 'user/signup_form.html'
     return render(request, template_name, context)
 
@@ -62,3 +84,8 @@ def signup_form(request):
 def logout_func(request):
     logout(request)
     return HttpResponseRedirect('/')
+
+
+
+
+
