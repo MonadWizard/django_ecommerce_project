@@ -140,14 +140,15 @@
 						
 						{% endif %}
 						
-						<ul class="custom-menu">
-							<li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
-							<li><a href="#"><i class="fa fa-heart-o"></i> My Wishlist</a></li>
-							<li><a href="#"><i class="fa fa-exchange"></i> Compare</a></li>
-							<li><a href="#"><i class="fa fa-check"></i> Checkout</a></li>
-							<li><a href="/user/logout"><i class="fa fa-unlock-alt"></i> Logout</a></li>
-							<li><a href="#"><i class="fa fa-user-plus"></i> Create An Account</a></li>
-						</ul>
+                        <ul class="custom-menu">
+                            <li><a href="/user"><i class="fa fa-user-o"></i> {% trans "My Account" %}</a></li>
+                            <li><a href="/user/favorits"><i class="fa fa-heart-o"></i> {% trans "My Favorits" %}</a></li>
+                            <li><a href="/user/orders"><i class="fa fa-exchange"></i> {% trans "My Orders " %}</a></li>
+                            <li><a href="/user/comments"><i class="fa fa-check"></i> {% trans "My Comments" %}</a></li>
+                            <li><a href="/user/logout"><i class="fa fa-unlock-alt"></i> {% trans "Logout" %}</a></li>
+
+                        </ul>
+
 					</li>
 					<!-- /Account -->
 

@@ -4,6 +4,5 @@
 * Login-logout, user-Image - OK
 * Customer automatically create profile at User SignUp - OK
 * user signUp form -OK
-* view User Profile  - 
+* view User Profile  - OK
 * update User Profile - 
-end 21
