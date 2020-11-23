@@ -1,8 +1,9 @@
 ### e-commerce -> SHOPCART
 
-* Creating order application (model+UI) - OK
-* Creating Shopcart model Admin - OK
-* Adding product to Shopcart - OK
-* Listing Shopcart Items - OK
-* Deleteing product from Shopcart - OK
+* Customer User Profile - OK
+* Login-logout, user-Image - 
+* Customer automatically create profile at User SignUp - 
+* user signUp form -
+* Deleteing product from Shopcart - 
 
+end 21

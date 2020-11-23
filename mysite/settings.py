@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'mptt',
 
     'order.apps.OrderConfig',
+    'user.apps.UserConfig',
     
 
 
