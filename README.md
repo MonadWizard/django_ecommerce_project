@@ -6,4 +6,4 @@
 * user signUp form -OK
 * view User Profile  - OK
 * update User Profile - OK
-* update User password - 
+* update User password - OK

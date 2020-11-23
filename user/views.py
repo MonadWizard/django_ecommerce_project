@@ -1,16 +1,16 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
-
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.contrib.auth.forms import PasswordChangeForm
+
 
 # Create your views here.
 from products.models import Category 
 from user.models import UserProfile
-
 from user.forms import SignUpForm, UserUpdateForm, ProfileUpdateForm
+
 
 
 @login_required(login_url='/login') # Check login
@@ -119,10 +119,23 @@ def user_update(request):
 
 
 
-
-
-
-
+@login_required(login_url='/login') # Check login
+def user_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Your password was successfully updated!')
+            return HttpResponseRedirect('/user')
+        else:
+            messages.error(request, 'Please correct the error below.<br>'+ str(form.errors))
+            return HttpResponseRedirect('/user/password')
+    else:
+        category = Category.objects.all()
+        form = PasswordChangeForm(request.user)
+        return render(request, 'user/user_password.html', {'form': form,'category': category
+                       })
 
 
 
