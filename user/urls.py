@@ -9,6 +9,8 @@ urlpatterns = [
     path('signup/', signup_form, name = 'signup_form'),
     path('update/', user_update, name = 'user_update'),
     path('password/', user_password, name = 'user_password'),
+    path('orders/', user_orders, name = 'user_orders'),
+
 
 
     

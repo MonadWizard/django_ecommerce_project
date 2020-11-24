@@ -143,7 +143,7 @@
                         <ul class="custom-menu">
                             <li><a href="/user"><i class="fa fa-user-o"></i> {% trans "My Account" %}</a></li>
                             <li><a href="/user/favorits"><i class="fa fa-heart-o"></i> {% trans "My Favorits" %}</a></li>
-                            <li><a href="/user/orders"><i class="fa fa-exchange"></i> {% trans "My Orders " %}</a></li>
+                            <li><a href="{% url 'user_orders'%}"><i class="fa fa-exchange"></i> {% trans "My Orders " %}</a></li>
                             <li><a href="/user/comments"><i class="fa fa-check"></i> {% trans "My Comments" %}</a></li>
                             <li><a href="/user/logout"><i class="fa fa-unlock-alt"></i> {% trans "Logout" %}</a></li>
 
@@ -158,7 +158,7 @@
 
 					<!-- Cart -->
 					<li class="header-cart dropdown default-dropdown">
-						<a href="order/shopcart" >
+						<a href="{% url 'shopcart'%}" >
 							<div class="header-btns-icon">
 								<i class="fa fa-shopping-cart"></i>
 								<span class="qty">3</span>

@@ -10,7 +10,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from products.models import Category 
 from user.models import UserProfile
 from user.forms import SignUpForm, UserUpdateForm, ProfileUpdateForm
-
+from order.models import Order
 
 
 @login_required(login_url='/login') # Check login
@@ -137,6 +137,17 @@ def user_password(request):
         return render(request, 'user/user_password.html', {'form': form,'category': category
                        })
 
+
+
+@login_required(login_url='/login') # Check login
+def user_orders(request):
+    category = Category.objects.all()
+    current_user = request.user
+    orders=Order.objects.filter(user_id=current_user.id)
+    context = {'category': category,
+               'orders': orders,
+               }
+    return render(request, 'user/user_orders.html', context)
 
 
 
