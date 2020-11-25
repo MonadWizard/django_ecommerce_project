@@ -28,13 +28,14 @@
 						<div class="product-body">
 							<h3 class="product-price">$ {{ pl.price }}</h3>
 							<div class="product-rating">
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star-o empty"></i>
+								<i class="fa fa-star{% if pl.avaregereview < 1%}-o empty{% endif%}"></i>
+								<i class="fa fa-star{% if pl.avaregereview < 2%}-o empty{% endif%}"></i>
+								<i class="fa fa-star{% if pl.avaregereview < 3%}-o empty{% endif%}"></i>
+								<i class="fa fa-star{% if pl.avaregereview < 4%}-o empty{% endif%}"></i>
+								<i class="fa fa-star{% if pl.avaregereview < 5%}-o empty{% endif%}"></i>
+								{{ pl.avaregereview |stringformat:".2f"}}
 							</div>
-							<h2 class="product-name"><a href="#">{{ lp.title }}</a></h2>
+							<h2 class="product-name"><a href="#">{{ pl.title }}</a></h2>
 							<div class="product-btns">
 								<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
 								<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
@@ -75,11 +76,12 @@
 						<div class="product-body">
 							<h3 class="product-price">$ {{ pl.price }}</h3>
 							<div class="product-rating">
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star-o empty"></i>
+								<i class="fa fa-star{% if pl.avaregereview < 1%}-o empty{% endif%}"></i>
+								<i class="fa fa-star{% if pl.avaregereview < 2%}-o empty{% endif%}"></i>
+								<i class="fa fa-star{% if pl.avaregereview < 3%}-o empty{% endif%}"></i>
+								<i class="fa fa-star{% if pl.avaregereview < 4%}-o empty{% endif%}"></i>
+								<i class="fa fa-star{% if pl.avaregereview < 5%}-o empty{% endif%}"></i>
+								{{ pl.avaregereview |stringformat:".2f"}}
 							</div>
 							<h2 class="product-name"><a href="#">{{ pl.title }}</a></h2>
 							<div class="product-btns">

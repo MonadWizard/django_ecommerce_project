@@ -89,27 +89,6 @@ def deletefromcart(request,id):
 
 
 
-
-
-# def orderproduct(request):
-#     category = Category.objects.all()
-#     current_user = request.user   # Access user session information
-#     shopcart = ShopCart.objects.filter(user_id=current_user.id)
-#     profile = UserProfile.objects.get(user_id=current_user.id)
-    
-#     total = 0
-#     for pl in shopcart:
-#         total += pl.product.price * pl.quantity
-
-#     context = {'shopcart': shopcart,
-#                'category': category,
-#                'total': total,
-#                'profile': profile,
-#                }
-#     return render(request, 'order/Order_Form.html', context)
-
-
-
 def orderproduct(request):
     category = Category.objects.all()
     current_user = request.user
