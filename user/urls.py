@@ -13,6 +13,8 @@ urlpatterns = [
     path('orderdetail/<int:id>', user_orderdetail,name='user_orderdetail'),
     path('orders_product/', user_order_product, name = 'user_order_product'),
     path('order_product_detail/<int:id>/<int:oid>', user_order_product_detail, name = 'user_order_product_detail'),
+    path('comments/', user_comments, name = 'user_comments'),
+    path('deletecomment/<int:id>', user_deletecomment, name = 'user_deletecomment'),
 
 
 
