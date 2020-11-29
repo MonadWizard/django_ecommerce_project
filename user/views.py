@@ -236,5 +236,3 @@ def user_deletecomment(request,id):
 
 
 
-
-
