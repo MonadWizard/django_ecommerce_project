@@ -4,3 +4,4 @@ django-ckeditor
 pillow
 django-mptt
 
+django-admin-thumbnails
