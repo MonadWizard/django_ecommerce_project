@@ -12,19 +12,19 @@
 
 * 4. Set Variants inline for Product in admin - OK
 
-* 5. Product Detail
+* 5. Product Detail  - OK
         Change product detail function -> views
         Change product link depending on variant -> templates
         Add variants on product detail -> templates
         Apply Ajax function -> View
         Select Variant Size, Color -> templates
 
-* 6. Shopcart
+* 6. Shopcart  - OK
         Define variant relation in shopcart -> Model
         Add variant id to shopcart -> views
         Get Variant price in list -> templates
 
-* 7. Order
+* 7. Order  - OK..!
         Define variant relation in order -> Model
         Add variant id to order table -> views
 

@@ -6,7 +6,7 @@ from django.utils.crypto import get_random_string
 
 from user.models import UserProfile
 from order.models import ShopCart, ShopCartForm, OrderForm, Order, OrderProduct
-from products.models import Category, Product
+from products.models import Category, Product, Variants
 # Create your views here.
 
 
@@ -21,26 +21,73 @@ def index(request):
 def addtoshopcart(request,id):
     url = request.META.get('HTTP_REFERER')  # get last url
     current_user = request.user  # Access User Session information
+    product= Product.objects.get(pk=id)
 
-    checkproduct = ShopCart.objects.filter(product_id=id)  # Check product in shopcart
-    if checkproduct:
-        control = 1 # The product is in the cart
+
+    if product.variant != 'None':
+        variantid = request.POST.get('variantid')  # from variant add to cart
+        checkinvariant = ShopCart.objects.filter(variant_id=variantid, user_id=current_user.id)  # Check product in shopcart
+        if checkinvariant:
+            control = 1 # The product is in the cart
+        else:
+            control = 0 # The product is not in the cart"""
     else:
-        control = 0 # The product is not in the cart"""
+        checkinproduct = ShopCart.objects.filter(product_id=id, user_id=current_user.id) # Check product in shopcart
+        if checkinproduct:
+            control = 1 # The product is in the cart
+        else:
+            control = 0 # The product is not in the cart"""
+
+
+
+    # if request.method == 'POST':  # if there is a post
+    #     form = ShopCartForm(request.POST)
+    #     if form.is_valid():
+    #         if control==1: # Update  shopcart
+    #             data = ShopCart.objects.get(product_id=id)
+            
+    #             data.quantity += form.cleaned_data['quantity']
+    #             data.save()  # save data
+    #         else : # Inser to Shopcart
+    #             data = ShopCart()
+    #             data.user_id = current_user.id
+    #             data.product_id =id
+    #             data.quantity = form.cleaned_data['quantity']
+    #             data.save()
+    #     messages.success(request, "Product added to Shopcart ")
+    #     return HttpResponseRedirect(url)
+
+    # else: # if there is no post
+    #     if control == 1:  # Update  shopcart
+    #         data = ShopCart.objects.get(product_id=id)
+    #         data.quantity += 1
+    #         data.save()  #
+    #     else:  #  Inser to Shopcart
+    #         data = ShopCart()  # model ile bağlantı kur
+    #         data.user_id = current_user.id
+    #         data.product_id = id
+    #         data.quantity = 1
+    #         data.save()  #
+    #     messages.success(request, "Product added to Shopcart")
+    #     return HttpResponseRedirect(url)
+
 
 
     if request.method == 'POST':  # if there is a post
         form = ShopCartForm(request.POST)
         if form.is_valid():
             if control==1: # Update  shopcart
-                data = ShopCart.objects.get(product_id=id)
-            
+                if product.variant == 'None':
+                    data = ShopCart.objects.get(product_id=id, user_id=current_user.id)
+                else:
+                    data = ShopCart.objects.get(product_id=id, variant_id=variantid, user_id=current_user.id)
                 data.quantity += form.cleaned_data['quantity']
                 data.save()  # save data
             else : # Inser to Shopcart
                 data = ShopCart()
                 data.user_id = current_user.id
                 data.product_id =id
+                data.variant_id = variantid
                 data.quantity = form.cleaned_data['quantity']
                 data.save()
         messages.success(request, "Product added to Shopcart ")
@@ -48,7 +95,7 @@ def addtoshopcart(request,id):
 
     else: # if there is no post
         if control == 1:  # Update  shopcart
-            data = ShopCart.objects.get(product_id=id)
+            data = ShopCart.objects.get(product_id=id, user_id=current_user.id)
             data.quantity += 1
             data.save()  #
         else:  #  Inser to Shopcart
@@ -56,9 +103,16 @@ def addtoshopcart(request,id):
             data.user_id = current_user.id
             data.product_id = id
             data.quantity = 1
+            data.variant_id =None
             data.save()  #
         messages.success(request, "Product added to Shopcart")
         return HttpResponseRedirect(url)
+
+
+
+
+
+
 
 
 
@@ -69,8 +123,8 @@ def shopcart(request):
     current_user = request.user  # Access User Session information
     shopcart = ShopCart.objects.filter(user_id=current_user.id)
     total=0
-    for pl in shopcart:
-        total += pl.product.price * pl.quantity
+    for rs in shopcart:
+        total += rs.product.price * rs.quantity
     #return HttpResponse(str(total))
     context={'shopcart': shopcart,
              'category':category,
@@ -80,6 +134,7 @@ def shopcart(request):
     template_name = 'order/shopcart_products.html'
     
     return render(request,template_name, context) 
+
 
 @login_required(login_url='/login') # Check login
 def deletefromcart(request,id):
@@ -95,7 +150,12 @@ def orderproduct(request):
     shopcart = ShopCart.objects.filter(user_id=current_user.id)
     total = 0
     for rs in shopcart:
-        total += rs.product.price * rs.quantity
+        if rs.product.variant == 'None':
+            total += rs.product.price * rs.quantity
+        else:
+            total += rs.variant.price * rs.quantity
+
+
         
     if request.method == 'POST':  # if there is a post
         form = OrderForm(request.POST)
@@ -120,20 +180,29 @@ def orderproduct(request):
             # Move Shopcart items to Order Products items
             shopcart = ShopCart.objects.filter(user_id=current_user.id)
             
-            for pl in shopcart:
+            for rs in shopcart:
                 detail = OrderProduct()
-                detail.order_id     = data.id  # Order Id
-                detail.product_id   = pl.product_id
+                detail.order_id     = data.id # Order Id
+                detail.product_id   = rs.product_id
                 detail.user_id      = current_user.id
-                detail.quantity     = pl.quantity
-                detail.price        = pl.product.price
-                detail.amount       = pl.amount
+                detail.quantity     = rs.quantity
+                if rs.product.variant == 'None':
+                    detail.price    = rs.product.price
+                else:
+                    detail.price = rs.variant.price
+                detail.variant_id   = rs.variant_id
+                detail.amount        = rs.amount
                 detail.save()
-                
-                # *** Reduce quantity of sold product from Amount of Product
-                product = Product.objects.get(id=pl.product_id)
-                product.amount -= rs.quantity
-                product.save()
+                # ***Reduce quantity of sold product from Amount of Product
+                if  rs.product.variant=='None':
+                    product = Product.objects.get(id=rs.product_id)
+                    product.amount -= rs.quantity
+                    product.save()
+                else:
+                    variant = Variants.objects.get(id=rs.product_id)
+                    variant.quantity -= rs.quantity
+                    variant.save()
+                #************ <> *****************
 
 
             ShopCart.objects.filter(user_id=current_user.id).delete()  # clean & Delete shopcart
@@ -142,8 +211,13 @@ def orderproduct(request):
             return render(request, 'order/Order_Completed.html',{'ordercode':ordercode,'category': category})
         else:
             messages.warning(request, form.errors)
-            return HttpResponseRedirect("/order/orders")
+            # return HttpResponseRedirect("/order/orders")
+            return HttpResponseRedirect("/order/orderproduct")
 
+#......................?
+    ShopCart.objects.filter(user_id=current_user.id).delete()  # clean & Delete shopcart
+    request.session['cart_items']=0
+#............................?
     form= OrderForm()
     profile = UserProfile.objects.get(user_id=current_user.id)
     context = {'shopcart': shopcart,

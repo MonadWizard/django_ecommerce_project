@@ -87,7 +87,7 @@ class ImagesAdmin(admin.ModelAdmin):
 class CommentAdmin(admin.ModelAdmin):
     list_display = ['subject','comment','product', 'status','create_at',]
     list_filter = ['status',]
-    readonly_fields = ('subject','comment','product',)
+    readonly_fields = ('subject','comment','ip','user','product','rate','id')
 
 
 class ColorAdmin(admin.ModelAdmin):

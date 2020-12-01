@@ -5,7 +5,7 @@ from order.models import ShopCart, Order, OrderProduct
 # Register your models here.
 
 class ShopCartAdmin(admin.ModelAdmin):
-    list_display = ['product','user', 'quantity', 'price', 'amount']
+    list_display = ['product','user', 'quantity', 'price', 'amount','variant']
     list_filter = ['user']
 
 

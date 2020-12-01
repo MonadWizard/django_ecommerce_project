@@ -80,9 +80,177 @@
 								
 								<a href="#tab2"> {{ product.countreview}}  Review(s) / Add Review</a>
 							</div>
-							<p><strong>Availability:</strong> In Stock</p>
+
 							<p><strong>Brand:</strong> E-SHOP</p>
 							<p> {{ product.description }}  </p>
+
+
+
+
+
+
+
+
+                            <script>
+                                $(document).on('change', '#post-form',function(e){
+                                    e.preventDefault();
+                                    $.ajax({
+                                        type:'POST',
+                                        url:'{% url "ajaxcolor" %}',
+                                        data:{
+                                            productid:$('#productid').val(),
+                                            size:$('#size').val(),
+                                            csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+                                            action: 'post'
+                                        },
+                                        data_type : 'html',
+                                        success: function (data) {
+                                            console.log("success");
+                                            $('#appendHere').html(data.rendered_table);
+                                        },
+                                        error: function (data) {
+                                            alert("Got an error dude " + data);
+                                        }
+                                    });
+                                });
+                            </script>
+
+						<div class="product-btns">
+							<div class="row">
+								{% if product.variant == 'Size-Color' %}
+
+								<div class="product-options">
+									<div class="size-option">
+										<form method="POST" id="post-form">
+											<input type="hidden" name="productid" id="productid" value="{{ product.id }}">
+											<span class="text-uppercase">Size :</span>
+											{% csrf_token %}
+											<select name="size" id="size">
+												{% for rs in sizes %}
+												<option {% if variant.size_id == rs.size_id %} selected {% endif %} value="{{ rs.size_id }}">
+													{{ rs.size.name }}</option>
+												{% endfor %}
+											</select>
+										</form>
+									</div>
+
+									<form method="post" action="?q=selectvariant" id="post-color">
+										{% csrf_token %}
+										<div id="appendHere">
+											<input type="hidden" name="size" id="size" value="{{ size_id }}">
+											<ul class="color-option">
+												<li><span class="text-uppercase">Color:</span></li>
+												{% for rs in colors %}
+												<input type="radio" {% if variant.id == rs.id %} checked {% endif %} name="variantid"
+													id="variantid" value="{{ rs.id }}" onchange="this.form.submit();">
+												<li {% if variant.id == rs.id %} class="active" {% endif %}>
+													<a
+														style="background-color:{{ rs.color.code }}; color: #D9D9D9; text-shadow: 1px 1px #000000; width: 90px">
+
+
+														{{ rs.price }} {{ rs.color }}
+													</a>
+													<img src="{{ rs.image }}" style="height: 70px">
+												</li>
+												{% endfor %}
+											</ul>
+										</div>
+									</form>
+								</div>
+
+
+								{% elif product.variant == 'Size' %}
+								<form method="post" action="?q=selectvariant" id="post-color">
+									{% csrf_token %}
+									<div id="appendHere">
+										<input type="hidden" name="size" id="size" value="{{ size_id }}">
+										<ul class="color-option">
+											<li><span class="text-uppercase">Size:</span></li>
+											{% for rs in sizes %}
+											<input type="radio" {% if variant.id == rs.id %} checked {% endif %} name="variantid" id="variantid"
+												value="{{ rs.id }}" onchange="this.form.submit();">
+											<li {% if variant.id == rs.id %} class="active" {% endif %}>
+												<a style=" color: #204d74;  width: 90px">
+													${{ rs.size }}<br> {{ rs.price }}
+												</a>
+											</li>
+											{% endfor %}
+										</ul>
+									</div>
+								</form>
+								<br><br>
+
+								{% elif product.variant == 'Color' %}
+								<form method="post" action="?q=selectvariant" id="post-color">
+									{% csrf_token %}
+									<div id="appendHere">
+										<input type="hidden" name="size" id="size" value="{{ size_id }}">
+										<ul class="color-option">
+											<li><span class="text-uppercase">Color:</span></li>
+											{% for rs in colors %}
+											<input type="radio" {% if variant.id == rs.id %} checked {% endif %} name="variantid" id="variantid"
+												value="{{ rs.id }}" onchange="this.form.submit();">
+											<li {% if variant.id == rs.id %} class="active" {% endif %}>
+												<a
+													style="background-color:{{ rs.color.code }}; color: #D9D9D9; text-shadow: 1px 1px #000000; width: 90px">
+													{{ rs.price}} {{ rs.color }}
+												</a>
+												<img src="{{ rs.image }}" style="height: 70px">
+											</li>
+											{% endfor %}
+										</ul>
+									</div>
+
+								</form>
+							</div>
+							{% endif %}
+
+							{% if  product.variant != 'None'   %}
+							<form action="/order/addtoshopcart/{{ product.id }}" method="post" id="addchart-form">
+								{% csrf_token %}
+								<input type="hidden" name="variantid" id="variantid" value="{{ variant.id }}">
+								<div id="SelectedProduct">
+									<p><strong>Availability:</strong> {% if variant.quantity > 0  %} In Stock {% else %} Out of Stock
+										{% endif %}</p>
+									<p><strong>Selected :</strong> Size : {{ variant.size }} Color : {{ variant.color }} </p>
+									<h3 class="product-price">${{ variant.price}}</h3>
+									<div class="qty-input">
+										<span class="text-uppercase">QTY: </span>
+										<input class="input" name="quantity" type="number" value="1" min="1" max="{{ variant.quantity }}">
+										<button type="submit" {% if variant.quantity < 1  %} disabled {% endif %}
+											class="primary-btn add-to-cart">
+											<i class="fa fa-shopping-cart"></i> Add to Cart
+										</button>
+									</div>
+								</div>
+							</form>
+							{% else %}
+
+							<form action="/order/addtoshopcart/{{ product.id }}" method="post" id="addchart-form">
+								{% csrf_token %}
+								<div id="SelectedProduct">
+									<p><strong>Availability:</strong> {% if product.amount > 0  %} In Stock {% else %} Out of Stock {% endif %}
+									</p>
+									<h3 class="product-price">{{ product.price }} </h3>
+									<div class="qty-input">
+										<span class="text-uppercase">QTY: </span>
+										<input class="input" name="quantity" type="number" value="1" min="1" max="{{ product.amount }}">
+										<button type="submit" {% if product.amount < 1  %} disabled {% endif %} class="primary-btn add-to-cart">
+											<i class="fa fa-shopping-cart"></i> Add to Cart
+										</button>
+									</div>
+								</div>
+							</form>
+
+							{% endif %}
+						</div>
+                        <br>
+
+
+
+
+
+
 							<div class="product-options">
 								<ul class="size-option">
 									<li><span class="text-uppercase">Size:</span></li>

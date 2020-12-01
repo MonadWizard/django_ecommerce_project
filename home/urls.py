@@ -12,6 +12,8 @@ urlpatterns = [
     path('product/<int:id>/<slug:slug>', product_detail,name='product_detail'),
     path('faq', faq, name = 'faq'),
 
+    path('ajaxcolor/', ajaxcolor, name = 'ajaxcolor'),
+    
 
 
 ]
